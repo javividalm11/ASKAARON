@@ -1,0 +1,4 @@
+dist/
+.local-intakes/
+node_modules/
+*.zip
