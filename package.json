@@ -1,1 +1,10 @@
-{"name":"ask-aaron","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","test":"node --test scripts/site.test.mjs","dev":"node scripts/preview.mjs"}}
+{
+  "name": "ask-aaron",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test scripts/site.test.mjs scripts/experience.test.mjs",
+    "dev": "node scripts/preview.mjs"
+  }
+}

@@ -1,4 +1,10 @@
 dist/
 .local-intakes/
 node_modules/
+.qa/
 *.zip
+*.tar.gz
+.env
+.env.*
+!.env.example
+*.log

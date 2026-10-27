@@ -1,0 +1,19 @@
+ASK AARON — EDITORIAL REDESIGN ASSETS
+
+Generated using the built-in image_gen.imagegen tool, using the user-supplied reference:
+C:/Users/Javi0/Downloads/Consejos de construcción antes de firmar.png
+
+The user confirmed that the portrait in the reference is Aaron and authorized its use.
+The portrait is an AI reconstruction from that reference, not an independently supplied original photograph.
+
+Asset: assets/twilight-house.jpg
+Final prompt:
+Use the supplied image only as a reference for the architectural photography and cinematic navy/gold art direction. Generate a clean ultra-wide 2.6:1 editorial photograph of a spectacular two-story contemporary glass home with cantilevered flat roofs, glowing amber interior, natural timber soffits, large pool and rain-wet stone terrace in foreground. Dramatic blue-gray clouds and a trace of peach sunset, exactly the upscale evening architecture feel of the top hero. Home should dominate the right 65% of frame, left 35% is deep navy dark softly lit trees and clouds with generous clean negative space for real HTML copy. No person, no portrait, no words, no typography, no UI, no documents, no logos, no watermarks. Realistic landscape photography with straight architectural lines, 28mm wide lens, detailed reflections in water, warm practical lights, cinematic twilight. Full bleed; no collage. Do not reproduce the full website, only its clean photo background.
+
+Asset: assets/plans-model.jpg
+Final prompt:
+Create only the photograph for the white THE PROBLEM band in the attached website reference, not the website itself. Ultra-wide 3:1 landscape editorial flat-lay photograph on a soft white and warm light-gray studio tabletop. Left 38% blank white surface for HTML heading, blending into a realistic detailed small architectural cutaway model of a premium modern home in the center-right, white walls natural oak and furnished rooms, surrounded by large architectural floor plans with fine graphite lines, a rolled plan, and two loose realistic contractor documents tilted at different angles, with several yellow highlighted text lines and short headings PROPOSAL and CHANGE ORDER. No other legible paragraphs necessary. The model and paper edges cast gentle convincing soft shadows. The right hand document tilts clockwise, left hand document tilts anticlockwise, exactly like the second band of the reference. No human, no computer, no graphic overlays, no speech bubbles, no cards, no website typography or UI, no logo. This is a photo background behind real HTML text and callouts, elegant consumer architecture magazine quality.
+
+Asset: assets/aaron-portrait.png
+Final prompt:
+Extract and reconstruct ONLY the confirmed portrait of Aaron shown in the upper right hero of the supplied reference website image. Preserve his identity, face, natural dark salt-and-pepper hair, slight stubble, warm brown eyes, approximate mid-forties appearance, confident approachable subtle smile, black open-collar polo shirt, crossed arms and exactly the same three-quarter forward-facing pose and framing. A realistic high-resolution professional editorial portrait cutout of this same man from waist to top of head. Reconstruct areas obscured by the website overlay cards, remove all words, signatures, white outlines, cards, house, other website graphics, backgrounds and panels completely. Shoulders fully visible, crossed forearms fully visible, realistic hands and anatomy, body fills frame, nothing clips except bottom at waist. Lighting from soft warm golden side light with cool natural fill, same lighting as the source. Completely transparent alpha background, no shadows cast outside the subject, no invented props, no text or logo. Use the supplied reference as the identity source.
