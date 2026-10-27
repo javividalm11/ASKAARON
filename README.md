@@ -29,3 +29,10 @@ Definir `bookingUrl` en `src/content.json` cuando exista un calendario. Por ahor
 ## Publicación
 
 La publicación inicial de Sites es privada. El dominio AaronBarcellona.com requiere asociación del dominio y configuración DNS para el lanzamiento público; no se ha modificado el DNS. Antes del lanzamiento, revisar artículos, datos de contacto, calendario y política de privacidad con Aaron. El SEO incluye metadatos por página, canonical dinámico, Open Graph, schema del negocio, sitemap y robots.txt. Las URLs canónicas usan el dominio que sirve la petición.
+
+
+## Cloudflare Pages
+
+El repositorio se publica en `https://askaaron.pages.dev/`. Configurar Pages con ra?z del repositorio vac?a, comando `npm run build` y directorio de salida `dist/pages`. `wrangler.jsonc` declara esta salida. La compilaci?n genera HTML est?tico y recursos separados, junto con `_worker.js` para las rutas, metadatos y formulario. El directorio `dist/server` sigue disponible para el servidor local y el alojamiento inicial.
+
+Para recibir solicitudes en producci?n, vincular un bucket R2 privado como `BUCKET` en Pages y volver a desplegar. Sin esta vinculaci?n, el formulario devuelve un error de disponibilidad y no afirma haber guardado la solicitud. El calendario y las notificaciones por correo siguen pendientes de configuraci?n.
