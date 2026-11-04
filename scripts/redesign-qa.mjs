@@ -16,7 +16,8 @@ try{
  await mkdir(new URL('../.qa/',import.meta.url),{recursive:true});
  for(const[width,height]of[[1920,1080],[1440,1000],[1024,900],[768,900],[390,844],[320,740]]){
   await send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<761});await send('Page.navigate',{url:'http://localhost:4173/'});await evaluate(`new Promise(resolve=>{if(document.readyState==='complete')return resolve(true);addEventListener('load',()=>resolve(true),{once:true});setTimeout(()=>resolve(false),10000)})`);await evaluate('document.fonts.ready.then(()=>true)');await new Promise(r=>setTimeout(r,200));
-  const layout=JSON.parse(await evaluate(`JSON.stringify({width:innerWidth,scroll:document.documentElement.scrollWidth,hero:document.querySelector('.editorial-hero').getBoundingClientRect().toJSON(),copy:document.querySelector('.editorial-hero-copy').getBoundingClientRect().toJSON(),credentials:document.querySelector('.hero-credentials').getBoundingClientRect().toJSON(),stage:document.querySelector('.hero-stage').getBoundingClientRect().toJSON(),form:document.querySelector('#intake').getBoundingClientRect().toJSON(),images:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src)})`));
+  const layout=JSON.parse(await evaluate(`JSON.stringify({width:innerWidth,scroll:document.documentElement.scrollWidth,hero:document.querySelector('.editorial-hero').getBoundingClientRect().toJSON(),copy:document.querySelector('.editorial-hero-copy').getBoundingClientRect().toJSON(),credentials:document.querySelector('.hero-credentials').getBoundingClientRect().toJSON(),stage:document.querySelector('.hero-stage').getBoundingClientRect().toJSON(),form:document.querySelector('#intake').getBoundingClientRect().toJSON(),images:[...document.images].filter(i=>i.loading!=='lazy'&&(!i.complete||!i.naturalWidth)).map(i=>i.src)})`));
+  if(layout.images.length)throw Error('Images missing: '+layout.images.join(', '));
   if(layout.scroll>width)throw Error('Horizontal overflow at '+width+': '+layout.scroll);
   if(width>760&&layout.copy.bottom>layout.credentials.top-8)throw Error('Hero copy overlaps credentials at '+width);
   if(layout.credentials.bottom>layout.hero.bottom)throw Error('Credentials clipped at '+width);
@@ -67,5 +68,13 @@ try{
  await evaluate(`new Promise(resolve=>{if(document.readyState==='complete')return resolve(true);addEventListener('load',()=>resolve(true),{once:true});setTimeout(()=>resolve(false),10000)})`);
  if(!await evaluate(`getComputedStyle(document.querySelector('.marquee-track')).animationName==='none'&&getComputedStyle(document.querySelector('.hero-atmosphere')).display==='none'`))throw Error('Reduced motion preference not respected');
  console.log('Reduced motion preference OK');
+ await evaluate(`document.querySelector('#intake').scrollIntoView({block:'center',behavior:'instant'})`);
+ await new Promise(r=>setTimeout(r,250));
+ if(!await evaluate(`document.body.classList.contains('intake-in-view')&&document.querySelector('#consult-promo').hidden&&getComputedStyle(document.querySelector('#promo-launcher')).display==='none'`))throw Error('Floating CTA must stay out of the intake form');
+ await evaluate(`window.scrollTo({top:0,behavior:'instant'})`);await new Promise(r=>setTimeout(r,250));
+ await evaluate(`document.querySelector('#promo-launcher').click();document.querySelector('.promo-service-links a[href*=Compare]').click()`);
+ await new Promise(r=>setTimeout(r,800));
+ if(!await evaluate(`location.pathname==='/start'&&document.querySelector('select[name="service"]').value==='Compare My Bids'`))throw Error('CTA service selection was not retained');
+ console.log('CTA clears the intake form and service shortcut preselects the correct review');
  if(browserErrors.length)throw Error(browserErrors.join('; '));console.log('No browser JavaScript exceptions');await send('Browser.close');
 }finally{ws?.close();browser.kill()}

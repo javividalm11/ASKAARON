@@ -79,7 +79,7 @@ function initExperience() {
   closeButton?.addEventListener('click', () => setChat(false));
   promoLauncher?.addEventListener('click', () => openPromo(true));
   promo?.querySelector('[data-close-promo]')?.addEventListener('click', () => { closePromo(true); promoLauncher.focus({ preventScroll: true }); });
-  promo?.querySelector('[data-promo-cta]')?.addEventListener('click', () => closePromo(true));
+  promo?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closePromo(true)));
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
     if (chat && !chat.hidden) { setChat(false); event.preventDefault(); }
@@ -118,8 +118,19 @@ function initExperience() {
     closePromo();
   }));
 
+  // Keep conversion controls out of the way while the visitor fills in the form.
+  const intake = document.getElementById('intake');
+  if (intake) {
+    const intakeObserver = new IntersectionObserver(entries => {
+      const visible = entries.some(entry => entry.isIntersecting);
+      document.body.classList.toggle('intake-in-view', visible);
+      if (visible) closePromo();
+    }, { threshold: 0, rootMargin: '-90px 0px -80px 0px' });
+    intakeObserver.observe(intake);
+  }
+
   function maybeOffer() {
-    if (offered || dismissed || !promoReady || scrollY < 160 || document.hidden || !chat?.hidden || document.querySelector('dialog[open]')) return;
+    if (document.body.classList.contains('intake-in-view') || offered || dismissed || !promoReady || scrollY < 160 || document.hidden || !chat?.hidden || document.querySelector('dialog[open]')) return;
     if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(document.activeElement?.tagName)) return;
     openPromo();
   }

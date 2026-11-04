@@ -21,3 +21,37 @@
 .editorial-site .nav-chevron { width: 13px; height: 13px; flex: 0 0 13px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s ease; }
 .editorial-site .nav-services:hover .nav-chevron,
 .editorial-site .nav-services:focus-within .nav-chevron { transform: rotate(180deg); }
+
+/* Original portrait supplied by Aaron: preserve the photograph and frame it editorially. */
+.editorial-site .aaron-profile{position:absolute;z-index:2;inset:7% 12% 13% 20%;margin:0;overflow:hidden;border:1px solid #e5c38a80;border-radius:110px 28px 28px 28px;background:#233c43;box-shadow:0 28px 75px #0005;transform:rotate(2deg)}
+.editorial-site .aaron-profile .aaron-portrait{position:static;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 25%;filter:none;transform:none;translate:none}
+.aaron-profile:after{content:"";position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#071b27ed);pointer-events:none}
+.aaron-profile figcaption{position:absolute;z-index:1;left:25px;right:18px;bottom:25px;color:#fff;transform:rotate(-2deg)}
+.aaron-profile figcaption span{display:block;font-size:9px;letter-spacing:2px;color:#f3d59e;margin-bottom:6px}
+.aaron-profile figcaption strong{font-family:Georgia,serif;font-size:24px;font-weight:400}
+.editorial-site .hero-stage .advocate-note{bottom:7%;right:0;z-index:4}
+.editorial-site .hero-stage .glass-proposal{z-index:3;left:-3%;top:14%}
+.editorial-site .hero-stage .glass-review{z-index:3;right:0;top:38%}
+.promo-expert{display:flex;gap:12px;align-items:center;margin-top:20px}
+.promo-expert img{flex-shrink:0;border-radius:50%;object-fit:cover;object-position:50% 18%;border:1px solid #e5c38a99}
+.promo-expert strong,.promo-expert span{display:block}
+.promo-expert strong{font-size:12px;line-height:1.5}
+.promo-expert span{font-size:9px;color:#b7c6cf;line-height:1.6;margin-top:3px}
+.promo-service-links{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+.promo-service-links a{font-size:9px;line-height:1.4;border:1px solid #c8d2d333;border-radius:20px;padding:7px 9px;color:#e1e7e9}
+.promo-service-links a:hover{color:#f3d59e;border-color:#e5c38a}
+.consult-promo{max-height:calc(100svh - 40px);overflow-y:auto}
+.promo-launcher>span:not(.promo-launcher-arrow){text-align:left}
+.promo-launcher small{display:block;font-size:9px;font-weight:400;margin-top:3px;color:#6b5b3e}
+.intake-in-view .promo-launcher{display:none}
+.decision-cta{display:flex;justify-content:space-between;align-items:center;gap:35px;padding:34px 40px;margin-top:12px;margin-bottom:35px;border:1px solid #d5bb8c70;border-radius:22px;background:linear-gradient(120deg,#fff8eb,#f6f2ea);font-family:var(--experience-font)}
+.decision-cta .overline{font-size:9px;color:#957031;margin-bottom:12px;letter-spacing:1.6px}
+.decision-cta h2{font-family:Georgia,serif;font-size:32px;font-weight:400;line-height:1.15;letter-spacing:-.8px;margin:0 0 12px}
+.decision-cta h2 em{color:#9c7239;font-weight:400}
+.decision-cta p:last-child{font-size:12px;line-height:1.7;max-width:480px;margin:0;color:#586570}
+.decision-action{flex-shrink:0;text-align:center}
+.decision-action .cta{min-height:49px;font-size:12px}
+.decision-action small{display:block;font-size:10px;color:#6b7073;margin-top:12px}
+@media(max-width:1150px){.editorial-site .aaron-profile{inset:10% 9% 17% 17%;border-top-left-radius:75px}.aaron-profile figcaption{left:18px;bottom:23px}.aaron-profile figcaption strong{font-size:20px}.aaron-profile figcaption span{font-size:8px;letter-spacing:1px}.editorial-site .hero-stage .advocate-note{bottom:12%}}
+@media(max-width:760px){.editorial-site .hero-stage{height:400px}.editorial-site .aaron-profile{inset:1% 12% 5% 17%;border-radius:65px 20px 20px 20px}.editorial-site .hero-stage .glass-proposal{left:0;top:12%;width:33%}.editorial-site .hero-stage .glass-review{right:0;top:44%;width:28%}.editorial-site .hero-stage .advocate-note{bottom:0;right:0;width:44%}.aaron-profile figcaption{left:15px;bottom:36px}.aaron-profile figcaption strong{font-size:17px}.aaron-profile figcaption span{font-size:7px}.decision-cta{display:block;width:calc(100% - 34px);padding:26px 22px;margin-bottom:25px}.decision-cta h2{font-size:29px}.decision-cta p:last-child{font-size:12px}.decision-action{text-align:left;margin-top:22px}.decision-action small{margin-left:3px}.consult-promo{bottom:84px;max-height:calc(100svh - 100px)}.promo-launcher{min-height:54px}.promo-launcher small{font-size:8px}.promo-expert{margin-top:17px}}
+@media(max-width:370px){.editorial-site .hero-stage{height:350px}.aaron-profile figcaption strong{font-size:14px}.aaron-profile figcaption span{font-size:6px}.promo-expert strong{font-size:11px}.consult-promo h2{font-size:25px}.promo-service-links a{font-size:8px}}
