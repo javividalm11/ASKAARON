@@ -1,40 +1,75 @@
 # Ask Aaron
 
-Sitio editorial en inglés para Aaron Barcellona, sin dependencias de ejecución. La portada sigue la referencia editorial confirmada: hero nocturno con retrato, propuestas flotantes, problema visualizado, tres servicios, pasos con formulario dorado, Insights y cierre. Incluye páginas de servicios, About, artículos e intake con carga privada de documentos. El formulario de la portada y el de `/start` usan el mismo endpoint privado.
+Web en inglés para el servicio de segunda opinión de construcción de Aaron Barcellona. El rediseño sigue la composición editorial del prompt Orvante, con la identidad azul marino y dorado del logotipo original, fondos crema y fotografías en color. No utiliza testimonios, clientes ni cifras comerciales inventadas.
 
-## Desarrollo
+## Desarrollo local en Windows
 
-`npm run build` genera el Worker y sus recursos en `dist/`. `npm test` verifica páginas, enlaces y recepción de archivos. `npm run dev` abre el servidor local en http://localhost:4173. Los envíos locales se guardan en `.local-intakes/`, excluido de Git. No son envíos de producción.
+Desde esta carpeta:
 
-El código vigente está en `src/`, `worker/` y `scripts/`; los recursos utilizados y sus licencias están en `assets/`. Las capturas y el perfil temporal del navegador de verificación se generan dentro de `.qa/`, excluido de Git, para mantener limpia la raíz del proyecto. Los DOCX y PDF originales se conservan en la carpeta superior. Se mantiene `dist/` generado para que el servidor local pueda servir la web.
+```powershell
+npm.cmd run build
+npm.cmd run dev
+```
 
-## Contenido
+Abrir http://localhost:4173. No requiere instalación de dependencias. Alternativamente, ejecutar `node scripts/build.mjs` y `node scripts/preview.mjs`. El servidor carga la compilación más reciente; reconstruir y refrescar después de editar fuentes.
 
-Editar `src/content.json` para servicios y artículos; agregar artículos dentro de `articles` con un slug único, categoría, título, introducción y secciones. Reconstruir y desplegar después de editar. Los artículos iniciales son borradores para revisión de Aaron. El filtro Videos permanece vacío hasta disponer de contenido real. El botón del hero abre un explicador interactivo de tres pasos. `src/editorial.css` y `src/editorial-motion.js` contienen la base del diseño y sus efectos; `src/experience.css` adapta la presentación a la referencia FundedNext con la identidad azul marino y dorado de Ask Aaron. Los recursos generados y sus prompts están documentados en `assets/editorial-assets.txt`. El retrato actual es la foto original proporcionada por el usuario en `assets/aaron-portrait.jpg`, conservada sin retoques y encuadrada mediante CSS. El logotipo original de `assets/logo.png` se utiliza en el encabezado y pie de página.
+## Diseño y contenido
 
-## Asistente y CTA flotante
+La portada incluye la apertura editorial con Aaron, una sección visual del problema con planos y aclaraciones, el bloque oscuro con carrusel de ejemplos y servicios en tarjetas blancas, y el cierre con experiencia, artículos e intake. La navegación, las páginas de servicios, About, Insights, privacidad y formulario completo usan el mismo diseño. La interfaz respeta movimiento reducido y permite navegar con teclado.
 
-`src/experience.js` contiene el asistente local de preguntas frecuentes en inglés y español. Se identifica como guía automática y responde a partir de los servicios, límites de carga y proceso publicados. No llama a una API de IA ni almacena los mensajes en el servidor. Para cambiar sus respuestas, actualizar `getGuideAnswer`; las pruebas están en `scripts/experience.test.mjs`. El chat enlaza al formulario para revisar un proyecto concreto.
+- `src/index.html`: portada, encabezado y pie compartidos.
+- `src/professional.css`: diseño actual, fuentes locales y adaptación móvil.
+- `src/professional.js`: revelado de palabras, contadores, navegación activa y aclaraciones de la propuesta.
+- `src/app.js`: menú móvil, filtro de artículos y envío del formulario.
+- `src/content.json`: servicios, artículos y enlace de calendario (`bookingUrl`). Los artículos iniciales están identificados como borradores pendientes de revisión de Aaron. Videos muestra un estado vacío hasta disponer de contenido real.
+- `scripts/build.mjs`: genera las 12 páginas, recursos y Worker en `dist/`.
+- `worker/api.js`: recepción de consultas y documentos.
 
-`src/conversion-widgets.html` contiene el chat y el anuncio de consulta. El anuncio se puede abrir manualmente o aparecer una vez tras 14 segundos y 160 px de lectura; no se abre mientras se escribe, se usa el chat o hay un diálogo abierto. Su cierre se recuerda durante la sesión mediante `sessionStorage`. Ambos controles funcionan con Escape y restauran el foco. `src/clarity-stats.html` presenta datos ya conocidos del servicio (25+ años, tres servicios y consulta de 15 minutos). La fuente Plus Jakarta Sans se sirve localmente; su licencia se conserva en `assets/Plus-Jakarta-Sans-OFL.txt`.
+Los archivos anteriores `editorial*`, `experience*`, los widgets y sus pruebas se conservan como código previo; la interfaz actual no los carga. El retrato y el logotipo se conservan sin alterar los archivos originales. El logo del encabezado mantiene sus colores y se integra con el fondo mediante composición CSS; en el pie se utiliza una presentación clara sobre azul marino, sin caja blanca.
 
-## Verificación visual
+## Validación
 
-`node scripts/redesign-qa.mjs` comprueba seis anchos (320 a 1920 px), menú móvil, explicador, recortes, chat, respuestas en español, renderizado seguro de mensajes, anuncio automático, recuerdo del cierre, movimiento reducido y errores de JavaScript; guarda capturas en `.qa/`. Este verificador usa Chrome instalado en Windows. El WebGL del hero se limita a una capa transparente de partículas y pausa al salir de pantalla. Se añaden contadores al entrar en pantalla, una banda continua y brillo al pasar el cursor sobre servicios y botones. Los efectos respetan movimiento reducido. El servidor local recarga la compilación después de `npm run build`; refrescar el navegador con Ctrl+F5 para descartar estilos en caché.
+```powershell
+npm.cmd test
+node scripts/professional-qa.mjs
+```
 
-## Reservas y documentos
+Las pruebas del sitio verifican páginas, recursos, privacidad de documentos, validación de entradas y fallos de almacenamiento. La revisión de navegador requiere Chrome en Windows y el servidor en el puerto 4173: comprueba seis anchos entre 320 y 1920 px, menú móvil, ejemplo interactivo, subpáginas, filtro Videos, envío real local de un PDF, movimiento reducido y errores JavaScript. Guarda capturas en `.qa/professional/`. El envío de prueba usa qa@example.com y queda únicamente en almacenamiento local.
 
-Definir `bookingUrl` en `src/content.json` cuando exista un calendario. Por ahora se solicita día, hora y zona horaria; no se confirma una reserva. Los registros y documentos se guardan bajo `intakes/<id>/` en el bucket R2 privado configurado como `BUCKET`. No existen rutas públicas para recuperar documentos. El registro `request.json` contiene los datos de contacto y las claves de los archivos. No hay notificaciones por correo configuradas: antes del lanzamiento público se debe establecer el proceso de revisión de consultas y conectar el correo o CRM de destino. Configurar también retención, revisión de la política de privacidad, protección antispam con límites en hosting y acceso operativo a los documentos. No se necesita una cuenta para enviar el formulario.
+## Páginas premium de servicios
 
-## Publicación
+Las tres páginas de `/services/` tienen fotografía editorial propia, documentos con profundidad 3D y movimiento al cursor, ejemplos con selección de tema, aparición de contenido al recorrer la página, preguntas frecuentes y enlaces al intake con el servicio preseleccionado. Los textos se han resumido en titulares, frases breves y puntos concretos; se eliminó la cita repetida y se compactaron las secciones. La portada conserva su diseño. El movimiento respeta `prefers-reduced-motion`; los ejemplos funcionan sin animación y el contenido principal permanece visible sin JavaScript.
 
-La publicación inicial de Sites es privada. El dominio AaronBarcellona.com requiere asociación del dominio y configuración DNS para el lanzamiento público; no se ha modificado el DNS. Antes del lanzamiento, revisar artículos, datos de contacto, calendario y política de privacidad con Aaron. El SEO incluye metadatos por página, canonical dinámico, Open Graph, schema del negocio, sitemap y robots.txt. Las URLs canónicas usan el dominio que sirve la petición.
+`scripts/service-pages.mjs` contiene las plantillas, ejemplos y preguntas frecuentes de cada servicio. `src/service-pages.css` y `src/service-pages.js` se cargan únicamente en esas tres páginas. Los servicios mantienen sus descripciones y lista de revisión en `src/content.json`. Cada página incluye schema Service y utiliza el mismo formulario y almacenamiento existentes.
 
+Las imágenes nuevas son `assets/service-before.png`, `assets/service-compare.png` y `assets/service-change.png`, generadas con la herramienta integrada ImageGen. Sus prompts completos están en los archivos `assets/service-before.prompt.txt`, `assets/service-compare.prompt.txt` y `assets/service-change.prompt.txt`.
 
-## Cloudflare Pages
+Con el servidor local activo, ejecutar `node scripts/service-pages-qa.mjs` para comprobar las tres páginas en cinco tamaños de 320 a 1920 px, imágenes, ejemplos interactivos, FAQ, efectos 3D, schema, preselección del formulario y movimiento reducido. Las capturas quedan en `.qa/service-pages/`.
 
-El repositorio se publica en `https://askaaron.pages.dev/`. Configurar Pages con ra?z del repositorio vac?a, comando `npm run build` y directorio de salida `dist/pages`. `wrangler.jsonc` declara esta salida. La compilaci?n genera HTML est?tico y recursos separados, junto con `_worker.js` para las rutas, metadatos y formulario. El directorio `dist/server` sigue disponible para el servidor local y el alojamiento inicial.
+## About Aaron
 
-Para recibir solicitudes en producci?n, vincular un bucket R2 privado como `BUCKET` en Pages y volver a desplegar. Sin esta vinculaci?n, el formulario devuelve un error de disponibilidad y no afirma haber guardado la solicitud. El calendario y las notificaciones por correo siguen pendientes de configuraci?n.
+`src/about.html` presenta la fotografía original de Aaron, su experiencia conocida, una exploración interactiva de cuatro ámbitos profesionales, enlaces visuales a servicios y preguntas frecuentes. `src/about.css` y `src/about.js` se cargan únicamente en `/about`. Las entradas de texto, el contador y la inclinación del retrato respetan movimiento reducido. La fotografía mantiene su proporción original y los archivos originales no se modifican.
 
-El CTA de consulta incluye una foto de Aaron, acceso directo al formulario y enlaces a las tres necesidades de revisi?n. Se oculta al entrar el formulario en pantalla. Una franja despu?s de los servicios ofrece otra entrada a la consulta gratuita.
+Con el servidor local activo, `node scripts/about-qa.mjs` revisa cinco tamaños entre 320 y 1920 px, la fotografía, el contador, las cuatro vistas, las FAQ, los enlaces de consulta y servicios, schema AboutPage y movimiento reducido. Las capturas se guardan en `.qa/about-1440.png` y `.qa/about-390.png`.
+
+## Ventana flotante de consulta
+
+`src/floating-cta.html`, `src/floating-cta.css` y `src/floating-cta.js` muestran un anuncio modal centrado con la fotografía de Aaron y acceso a la consulta gratuita. Utiliza un diálogo nativo con fondo oscurecido y desenfocado. Aparece tras 20 segundos de cargar cada página, incluso si ya se cerró en una visita anterior. Se muestra una sola vez por carga. Se cierra con la X, Escape o un clic fuera. Al abrir, el foco pasa al cierre y permanece dentro del diálogo; al cerrar, se restaura al elemento anterior.
+
+No aparece en `/start`. Mientras el usuario escribe, hay otro diálogo o menú móvil abierto, o la pestaña está oculta, espera y vuelve a comprobar cada segundo. En las páginas de servicios, el enlace conserva la selección del servicio. Respeta movimiento reducido. No guarda preferencias en el navegador ni envía datos a servicios externos.
+
+`node scripts/floating-cta-qa.mjs` verifica el intervalo real de 20 segundos, reaparición al recargar aunque existan preferencias antiguas, selección del servicio, tres tamaños y movimiento reducido. Las capturas quedan en `.qa/floating-cta-1440.png` y `.qa/floating-cta-390.png`.
+
+## Consulta y documentos
+
+Los formularios de portada y `/start` utilizan `/api/intake`. Admiten hasta cinco archivos y 20 MB en total: PDF, Word, JPG, PNG y WebP. El servidor local guarda consultas y documentos en `.local-intakes/`, excluido de Git. No envía correos ni reserva citas reales.
+
+Configurar `bookingUrl` en `src/content.json` para ofrecer un enlace al calendario después de un envío correcto. Mientras esté vacío, el sitio solicita una consulta y aclara que el horario será confirmado. El formulario completo `/start` permite indicar día, hora y zona horaria preferidos. La consulta inicial de 15 minutos es gratuita; el alcance y precio de una revisión se acuerdan por separado.
+
+## Hosting y lanzamiento
+
+El repositorio `javividalm11/ASKAARON` está conectado al proyecto `askaaron` de Cloudflare Pages. Los cambios subidos a `main` activan el despliegue automático en `https://askaaron.pages.dev`. Configuración: comando `npm run build`, directorio `dist/pages`, Worker `_worker.js` y archivo `wrangler.jsonc`. Este flujo no modifica el dominio ni DNS.
+
+Para recibir documentos en producción hay que vincular un bucket R2 privado como `BUCKET` y volver a desplegar. Sin almacenamiento configurado, el formulario informa del error y no afirma haber guardado la solicitud. Conectar también el calendario y el destino de notificaciones, revisar los artículos y la privacidad con Aaron y asociar AaronBarcellona.com en el proveedor de hosting.
+
+El sitio incluye títulos y descripciones por página, canonical y Open Graph, schema del servicio y fundador, sitemap, robots.txt y URLs limpias. La edición de artículos se realiza en el JSON y requiere recompilación; no se ha añadido un CMS.
