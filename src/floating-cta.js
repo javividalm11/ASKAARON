@@ -10,7 +10,7 @@ if(invitation&&location.pathname!=='/start'){
  const showWhenReady=()=>{
   clearTimeout(timer);if(completed())return;
   const remaining=deadline-Date.now();if(remaining>0){timer=setTimeout(showWhenReady,remaining);return}
-  if(document.hidden||document.activeElement?.matches('input,textarea,select,[role="combobox"],[contenteditable="true"]')||document.querySelector('dialog[open],.menu[aria-expanded="true"]')){timer=setTimeout(showWhenReady,1000);return}
+  if(document.hidden||document.activeElement?.matches('input,textarea,select,[role="combobox"],[contenteditable="true"]')||document.querySelector('dialog[open],.menu[aria-expanded="true"],.dive-stage[data-busy="true"],.dive-flow #intake')){timer=setTimeout(showWhenReady,1000);return}
   previousFocus=document.activeElement;shown=true;invitation.hidden=false;invitation.showModal();closeButton.focus({preventScroll:true});
   if(status)status.textContent='You can request a free 15-minute consultation with Aaron using the floating invitation.';
  };
